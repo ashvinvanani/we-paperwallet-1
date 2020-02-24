@@ -5,8 +5,9 @@
   <meta name="description" content="Universal Open Source Client-Side Paper Wallet Generator for BitCoins and other cryptocurrencies. Create your own paper wallet in a few easy steps : Generate, Print and Fold !">
   <meta name="keywords" content="universal, paper, wallet, generator, cryptocurrencies, bitcoin, litecoin, dogecoin" />
 
-  <title>WE Paperwallet - Universal Paper wallet generator for Wecoin</title>
+  <title>Paperwallet - Universal Paper wallet generator</title>
   <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+  <script src="js/config.js"></script>
   <script src="js/jquery.js"></script>
   <script src="js/main.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -9654,8 +9655,8 @@ h1 { margin: 0px; height: 91px; }
 
     <nav class="nav">
        	<ul class="cf">
-       	<li class="parrent_li"><a href="https://wallet.we-coin.io/" target="_blank" data-hash="web-wallet">Web Wallet</a></li>
-   		<li class="parrent_li"><a href="https://explorer.we-coin.io/" target="_blank">Explorer</a></li>
+       	<li class="parrent_li"><span class="config_key"><a href="%(wallet_url)s" target="_blank" data-hash="web-wallet">Web Wallet</a></span></li>
+   		<li class="parrent_li"><span class="config_key"><a href="%(explorer_url)s" target="_blank">Explorer</a></span></li>
    		<li class="divider-mobile"></li>
  		</ul>
 	</nav>
@@ -9751,7 +9752,7 @@ h1 { margin: 0px; height: 91px; }
 
             <h3 id="securitystep0title" class="i18n">Step 0. Follow the security checklist recommendation</h3>
             <p id="securitystep0" class="i18n">
-              First step is to <strong>download</strong> this website from <a href="https://github.com/flash-coin/we-paperwallet/archive/master.zip">Github</a> and open the index.html file directly from your computer. It's just too easy to sneak some evil code in the 6000+ lines of javascript to leak your private key, and you don't want to see your fund stolen. Code version control make it much easier to cross-check what actually run. For extra security, <strong>unplug your Internet access</strong> while generating your wallet.
+              First step is to <strong>download</strong> this website from <span class="config_key"><a href="%(zip_download_url)s">Github</a></span> and open the index.html file directly from your computer. It's just too easy to sneak some evil code in the 6000+ lines of javascript to leak your private key, and you don't want to see your fund stolen. Code version control make it much easier to cross-check what actually run. For extra security, <strong>unplug your Internet access</strong> while generating your wallet.
             </p>
             <h3 id="securitystep1title" class="i18n">Step 1. Generate new address</h3>
             <p id="securitystep1" class="i18n">
@@ -9807,8 +9808,7 @@ h1 { margin: 0px; height: 91px; }
           <p class="faqAnswer" id="faqQuestion1">
             We try to make it that way ! The core of the tool, that generate the keys is 99% the same as the well reviewed bitaddress.org.
           </p>
-          <p class="faqAnswer" id="faqQuestion1.1">
-Wecoin Paper Wallet Generate use the best security measures. All-in-one html document, no ajax, no analytics, no external calls, no CDN that can inject anything they want. And trust us, we have seen some nasty things when reviewing some wallet generator.
+          <p class="faqAnswer" id="faqQuestion1.1"><span class="config_key">%(company_name)s Paper Wallet Generate use the best security measures. All-in-one html document, no ajax, no analytics, no external calls, no CDN that can inject anything they want. And trust us, we have seen some nasty things when reviewing some wallet generator.</span>
           </p>
 
           <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion2');">&#8226; Why should I use a paper wallet ?</a></h3>
@@ -9824,13 +9824,13 @@ Wecoin Paper Wallet Generate use the best security measures. All-in-one html doc
           </p>
 
           <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion4');">&#8226; How to spend the coins stored in a paper wallet ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion4">
-            You will need to import your private key in a real client, that you can download from the Wecoin website. The exact method to do that will depend on the client. If there is no integrated method, you can usually fall back to the debug console and use the command “importprivkey [yourprivatekey]“.
+          <p class="faqAnswer" id="faqQuestion4"><span class="config_key">
+            You will need to import your private key in a real client, that you can download from the %(company_name)s website. The exact method to do that will depend on the client. If there is no integrated method, you can usually fall back to the debug console and use the command “importprivkey [yourprivatekey]“.</span>
           </p>
 
           <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion9');">&#8226; I found a bug, what shall I do ?</a></h3>
-          <p class="faqAnswer" id="faqQuestion9">
-            You can report bugs using GitHub. You can also send us an email at (<a href="mailto:support@we-coin.io">support@we-coin.io</a>). Just try to explain clearly what is wrong and we will try to fix the bug as soon as possible.
+          <p class="faqAnswer" id="faqQuestion9"><span class="config_key">
+            You can report bugs using GitHub. You can also send us an email at (<a href="mailto:%(support_email_id)s">%(support_email_id)s</a>). Just try to explain clearly what is wrong and we will try to fix the bug as soon as possible.</span>
           </p>
 
           <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion11');">&#8226; How can I help ?</a></h3>
@@ -10023,7 +10023,7 @@ Wecoin Paper Wallet Generate use the best security measures. All-in-one html doc
 </div>
     <div id="footer" class="footer">
       <div style="text-align: center;">
-        <span class="item">WE is supported by the Third Millennium Foundation for Economics and Culture, Liechtenstein, and the WE community worldwide.</span>
+        <span class="item config_key">%(main_currency_code)s is supported by the Third Millennium Foundation for Economics and Culture, Liechtenstein, and the %(main_currency_code)s community worldwide.</span>
       </div>
     </div>
 
@@ -10194,6 +10194,7 @@ janin.currency = {
     },
 };
 
+var main_coin = get_config_parameter('main_currency_config', true);
 janin.currencies = [
     //                              name, networkVersion, privateKeyPrefix, WIF_Start, CWIF_Start, donate
     janin.currency.createCurrency ("2GIVE",               0x27, 0xa7, "6",    "R"    , "Givewmf4yv8uuHZG6Eb7sm17fJS2Trf6U8"),
@@ -10389,20 +10390,24 @@ janin.currencies = [
     janin.currency.createCurrency ("WACoins",             0x49, 0xc9, "7",    "W"    , ""),
     janin.currency.createCurrency ("WankCoin",            0x00, 0x80, "5",    "[LK]" , "1CnEFZZxJQkNAvgFGdRV5JEKShkNj1LRWL"),
     janin.currency.createCurrency ("WeAreSatoshiCoin",    0x87, 0x97, "6",    "P"    , "wSEgPsCGqQESLDyzBJkwCXvMP1z3e1Qi3X"),
-    janin.currency.createCurrency ("Wecoin",              0x49, 0xc9, "7",    "W" , "WX2LjMwbamSjC1EPvD6hcnAD9APdxLgCDn"),
     janin.currency.createCurrency ("WorldCoin",           0x49, 0xc9, "7",    "W"    , "WNmGkn2WQZKS6xKHEsj5AqSbuE4sh9Upyb"),
     janin.currency.createCurrency ("XP",                  0x4b, 0xcb, "7",    "X"    , "XLRykcGjFMpBDQ7PHfamR2DR4Z21qTUBHG"),
     janin.currency.createCurrency ("Yenten",              0x4e, 0x7b, "5",    "K"    , "YStuCpv1U9iT3L1VqBr52B9nBxrNgt4Fpj"),
     janin.currency.createCurrency ("Zcash",        [0x1c,0xb8], 0x80, "5",    "[LK]" , "t1XA64Hw47QaCxCUEgZbc4FVdH811RMd1xp"),
     janin.currency.createCurrency ("Zetacoin",            0x50, 0xE0, "8",    "a"    , "ZRU6TP8NLzoyey4DPPaa3uCCgDNDc96PXJ"),
 
-
-
     janin.currency.createCurrency ("Testnet Bitcoin",     0x6f, 0xef, "9",    "c"    , null),
     janin.currency.createCurrency ("Testnet Dogecoin",    0x71, 0xf1, "9",    "c"    , null),
     janin.currency.createCurrency ("Testnet MonetaryUnit",0x26, 0x40, "3",    "A"    , null),
     janin.currency.createCurrency ("Testnet PIVX",        0x8b, 0xef, "9",    "c"    , null),
-    janin.currency.createCurrency ("Testnet WACoins",     0x51, 0xd1, "8",    "[XY]" , null)
+    janin.currency.createCurrency ("Testnet WACoins",     0x51, 0xd1, "8",    "[XY]" , null),
+    janin.currency.createCurrency (	main_coin.coin_name, 
+									main_coin.network_version, 
+									main_coin.privatekey_prefix, 
+									main_coin.wif_start,
+									main_coin.cwif_start,
+									main_coin.donate
+									)
                    ];
 
   </script>
@@ -13161,7 +13166,9 @@ if (ninja.getQueryString()["showseedpool"] == "true" || ninja.getQueryString()["
 	document.getElementById("seedpoolarea").style.display = "block";
 }
 // change currency
-var currency = "wecoin";//ninja.getQueryString()["currency"] || "bitcoin";
+
+var main_coin_config = get_config_parameter('main_currency_config', true);
+var currency = main_coin_config.coin_name; //"wecoin"; //ninja.getQueryString()["currency"] || "bitcoin";
 currency = currency.toLowerCase();
 for(i = 0; i < janin.currencies.length; i++) {
 	if (janin.currencies[i].name.toLowerCase() == currency)

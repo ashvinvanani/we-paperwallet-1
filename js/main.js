@@ -1,9 +1,49 @@
-jQuery(function($) {'use strict';
+function replace_config_values(scope) {
+  var parentElement = '';
+  if (scope) parentElement = scope + ' ';
 
+  var selector1 = parentElement + '.config_key';
+
+  $(selector1).each(function() {
+    var str = $(this).html();
+    for (let p in config_params) {
+      var word = '%(' + p + ')s';
+      word = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      var sign = new RegExp(word, 'g');
+      str = str.replace(sign, config_params[p]);
+    }
+    $(this).html(str);
+  });
+
+  if (!scope) {
+    $('meta').each(function() {
+      var str = $(this).attr('content');
+      for (let p in config_params) {
+        var word = '%(' + p + ')s';
+        word = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        var sign = new RegExp(word, 'g');
+        str = str.replace(sign, config_params[p]);
+      }
+      $(this).attr('content', str);
+    });
+  }
+}
+
+function get_config_parameter(key, strReturn = false) {
+  if (!strReturn) document.write(config_params[key]);
+  else return config_params[key];
+}
+
+jQuery(function($) {'use strict';
+	var main_currency_code = get_config_parameter('main_currency_code', true);
+	var company_name = get_config_parameter('company_name', true);
+	document.title = main_currency_code + ' Paperwallet - Universal Paper wallet generator for ' + company_name;
+	replace_config_values();
+	
 	$('a.navbar-brand').on('click', function(){
 		var domain = window.location.origin;
 		if (domain == 'http://localhost') {
-			domain = domain + '/wecoin';
+			domain = domain + '/paperwallet';
 		}
 		window.location.href = domain;
 	});
@@ -25,7 +65,7 @@ jQuery(function($) {'use strict';
 			sessionStorage.setItem("pageelement", hashtag);
 			var domain = window.location.origin;
 			if (domain == 'http://localhost') {
-				domain = domain + '/wecoin/';
+				domain = domain + '/paperwallet/';
 			}
 			window.location.href = domain+'#'+hashtag;
 		} else {
